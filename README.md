@@ -2,6 +2,17 @@
 
 Aplicación moderna de lista de tareas desarrollada con HTML, CSS y JavaScript Vanilla para gestionar pendientes de forma intuitiva, elegante y productiva.
 
+## 🚀 Demo
+
+https://eztebandev1109.github.io/To-Do-Lits-Workspace/
+
+
+## 📸 Preview
+
+<p align="center">
+  <img src="./assets/preview.png" alt="Preview de la app" width="500"/>
+</p>
+
 ## ✨ Características
 
 - Crear tareas con:
@@ -43,10 +54,6 @@ Este proyecto fue desarrollado como práctica para fortalecer habilidades en:
 - Arquitectura de componentes UI sin frameworks
 - Diseño UI/UX moderno
 
-## 📸 Preview
 
-![Preview de la app](./assets/preview.png)
 
-## 🚀 Demo
 
-https://eztebandev1109.github.io/To-Do-Lits-Workspace/

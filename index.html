@@ -1,0 +1,150 @@
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>To-Do List</title>
+    <meta name="description" content="Aplicación To-Do List moderna para organizar tareas diarias, gestionar pendientes y mejorar tu productividad de forma simple y elegante." />
+    <meta name="keywords" content="to do list, lista de tareas, productividad, gestor de tareas, tareas pendientes" />
+    <meta name="author" content="William Esteban Carrero Vasquez" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#111827" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+
+    <div class="bg-orbs">
+        <div class="orb orb1"></div>
+        <div class="orb orb2"></div>
+        <div class="orb orb3"></div>
+    </div>
+
+    <!-- ══ MODAL NUEVA TAREA ══════════════════════════ -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+
+        <div class="modal-header">
+            <h2 class="modal-title" id="modalTitle">Nueva tarea</h2>
+            <button class="modal-close" id="modalClose" aria-label="Cerrar">✕</button>
+        </div>
+
+        <!-- Título -->
+        <div class="field">
+            <label class="field-label" for="mTaskTitle">Título <span class="required">*</span></label>
+            <div class="input-wrapper">
+            <span class="input-icon">✦</span>
+            <input type="text" id="mTaskTitle" class="field-input" placeholder="¿Qué hay que hacer?" maxlength="80" autocomplete="off"/>
+            </div>
+        </div>
+
+        <!-- Descripción -->
+        <div class="field">
+            <label class="field-label" for="mTaskDesc">Descripción</label>
+            <textarea id="mTaskDesc" class="field-textarea" placeholder="Añade más detalles sobre esta tarea..." rows="3" maxlength="300"></textarea>
+            <span class="char-count" id="descCount">0 / 300</span>
+        </div>
+
+        <!-- Fila: Fecha + Categoría -->
+        <div class="field-row">
+
+            <!-- Fecha -->
+            <div class="field field-half">
+            <label class="field-label" for="mTaskDate">Fecha límite</label>
+            <div class="input-wrapper">
+                <span class="input-icon">◷</span>
+                <input type="date" id="mTaskDate" class="field-input field-date"/>
+            </div>
+            </div>
+
+            <!-- Categoría -->
+            <div class="field field-half">
+            <label class="field-label">Categoría</label>
+            <div class="cat-select-wrapper">
+                <div class="cat-select" id="catSelect" tabindex="0">
+                <span class="cat-select-label" id="catSelectLabel">
+                    <span class="cat-dot" id="catSelectDot" style="background:#555"></span>
+                    <span id="catSelectText">Sin categoría</span>
+                </span>
+                <span class="cat-chevron">⌄</span>
+                </div>
+                <div class="cat-dropdown" id="catDropdown">
+                <!-- options injected by JS -->
+                </div>
+            </div>
+            </div>
+        </div>
+
+        <!-- Crear nueva categoría (inline) -->
+        <div class="new-cat-form" id="newCatForm">
+            <p class="new-cat-heading">Nueva categoría</p>
+            <div class="new-cat-row">
+            <input type="text" id="newCatName" class="field-input new-cat-input" placeholder="Ej: Trabajo, Personal..." maxlength="24"/>
+            </div>
+            <div class="color-picker-row">
+            <span class="field-label" style="margin:0">Color:</span>
+            <div class="color-dots" id="colorDots"></div>
+            </div>
+            <div class="new-cat-actions">
+            <button class="btn-ghost" id="cancelCatBtn">Cancelar</button>
+            <button class="btn-accent-sm" id="saveCatBtn">Guardar</button>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn-ghost" id="cancelTaskBtn">Cancelar</button>
+            <button class="btn-accent" id="saveTaskBtn">
+            <span>Guardar tarea</span>
+            <span class="btn-arrow">→</span>
+            </button>
+        </div>
+
+        </div>
+    </div>
+
+    <!-- ══ MAIN APP ═══════════════════════════════════ -->
+    <div class="container">
+
+        <header class="header">
+        <div class="header-top">
+            <span class="label">MY WORKSPACE</span>
+            <span class="task-counter" id="taskCounter">0 tareas</span>
+        </div>
+        <h1 class="title">To<span class="accent">-</span>Do</h1>
+        <p class="subtitle">Organiza tu día con intención.</p>
+        </header>
+
+        <!-- Barra de acciones -->
+        <div class="topbar">
+        <div class="filters" id="filterArea">
+            <button class="filter-btn active" data-filter="all">Todas</button>
+            <button class="filter-btn" data-filter="pending">Pendientes</button>
+            <button class="filter-btn" data-filter="done">Completadas</button>
+        </div>
+        <button class="add-task-btn" id="openModalBtn" aria-label="Nueva tarea">
+            <span class="add-task-plus">+</span>
+            <span>Nueva tarea</span>
+        </button>
+        </div>
+
+        <!-- Filtro por categoría -->
+        <div class="cat-filter-bar" id="catFilterBar"></div>
+
+        <ul class="task-list" id="taskList"></ul>
+
+        <div class="empty-state" id="emptyState">
+        <div class="empty-icon">◎</div>
+        <p>No hay tareas aquí.<br>¡Empieza añadiendo una!</p>
+        </div>
+
+        <footer class="footer" id="footer">
+        <span id="pendingCount">0 pendientes</span>
+        <button class="clear-btn" id="clearDone">Limpiar completadas</button>
+        </footer>
+
+    </div>
+
+    <script src="app.js"></script>
+    </body>
+    </html>
